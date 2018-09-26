@@ -5,7 +5,7 @@
 
 ## Start the developement
 
-### INstall dependencies
+### Install dependencies
 ``` bash
 npm install
 ```
