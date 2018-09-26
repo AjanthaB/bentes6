@@ -1,3 +1,10 @@
 # Express.js Babel 7 and TypeScript Setup
 
-## This project is starter project which configure for use Babel 7 with Express.js and TypeScript 3
+## This is a starter project which has configured to use Babel 7, Express.js and TypeScript 3. This project anables the latest technology features you can have.
+
+
+# Start
+``` bash
+npm install
+```
+
