@@ -1,0 +1,237 @@
+{
+	"info": {
+		"name": "bentes6",
+		"_postman_id": "389154f3-7696-6867-48bc-a4d65be74cad",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"description": "",
+			"item": [
+				{
+					"name": "get-users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9872ae5a-28d7-4003-81fa-8a71a39ce45c",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response contains empty users array\", function () {",
+									"    let users = pm.response.json();",
+									"    ",
+									"    pm.expect(users.length).to.eql(0);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "create-users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c9580f2-328d-4c2d-8502-5d6e5ca48ba8",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response contains exepected fields (firstName, lastName, username)\", function () {",
+									"    let json = pm.response.json();",
+									"    ",
+									"    pm.expect(json).to.have.property(\"firstName\");",
+									"    pm.expect(json).to.have.property(\"lastName\");",
+									"    pm.expect(json).to.have.property(\"username\");",
+									"    pm.expect(json).to.have.property(\"id\");",
+									"    pm.variables.set(\"userId\", json.id.toString());",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Kamal\",\n\t\"lastName\": \"Snajaya\",\n\t\"username\": \"ksanjaya\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "update-user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "eec8352d-3a0e-4016-ae11-5abc6a79102c",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd1f87d1-aa5c-4c2f-99d6-ff8cb8e97e6a",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response contains exepected updated fields values for (firstName, lastName, username)\", function () {",
+									"    let json = pm.response.json();",
+									"    ",
+									"    pm.expect(json).to.have.property(\"firstName\");",
+									"    pm.expect(json).to.have.property(\"lastName\");",
+									"    pm.expect(json).to.have.property(\"username\");",
+									"    pm.expect(json).to.have.property(\"id\");",
+									"    ",
+									"    pm.expect(json.firstName).to.eql(\"Chanaka1\");",
+									"    pm.expect(json.lastName).to.eql(\"Pradeepa1\");",
+									"    pm.expect(json.username).to.eql(\"Chana1\");",
+									"    pm.expect(json.id.toString()).to.eql(pm.variables.get(\"userId\"));",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Chanaka1\",\n    \"lastName\": \"Pradeepa1\",\n    \"username\": \"Chana1\",\n    \"id\": {{userId}}\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "delete-user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d617a0b6-35d0-4aa5-a41e-376ee897cad5",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Delete is success, status: 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Remove userId from global variable\", function () {",
+									"    pm.globals.unset(\"userId\");",
+									"});",
+									"",
+									"// postman.setNextRequest(\"get-users\");",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users?id={{userId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{userId}}",
+									"equals": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
