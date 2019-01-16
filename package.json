@@ -9,7 +9,7 @@
     "start:prod": "NODE_ENV=prod nodemon",
     "build": "babel src --out-dir dist --extensions \".ts, .tsx\" --source-maps inline",
     "serve": "node dist/server.js",
-    "test:newman": "node src/newman/user.test.js"
+    "test:newman": "node src/newman/users.test.js"
   },
   "keywords": [
     "Bable7",
@@ -27,6 +27,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-typescript": "^7.0.0",
+    "newman": "^4.3.1",
     "nodemon": "^1.18.3",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",

@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 // routes
-import userRoute from '../routes/index';
+import userRoute from '../routes/user.route';
 
 const initAppConfigs = (app: any) => {
   // setup the body-parser configurations

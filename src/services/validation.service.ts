@@ -29,7 +29,7 @@ export const validateUserId = (userId: number) => {
   return Joi.validate(userId, userIdSchema);
 }
 
-// return validation errors 
+// return extracted validation errors 
 export const getJoiValidationErrors = (validationObj: any) => {
   if (validationObj && validationObj.error != null) {
     const errors = validationObj.error;

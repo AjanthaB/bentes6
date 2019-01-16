@@ -7,12 +7,7 @@ import { User } from '../models/user';
 import * as Validators from '../services/validation.service';
 
 // temporaty users
-let users: User[] = [{
-  firstName: 'Ajantha',
-  lastName: 'Bandata',
-  username: 'ajanthab',
-  id: Math.random()
-}];
+let users: User[] = [];
 
 // get all the user from database
 export const getUsers = (req: any, res: any): any => {
@@ -61,7 +56,7 @@ export const deleteUser = (req: any, res: any): any => {
     return res.status(400)
       .json(Validators.getJoiValidationErrors(validationResult));
   }
-
+  console.log("userid: ", userId);
   users = users.filter((user: User) => user.id != userId);
   return res.status(200)
     .json();
