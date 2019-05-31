@@ -1,6 +1,7 @@
 /**
  * @author Ajantha Bandara
  */
+import { Request, Response } from 'express'
 
 import { User } from '../models/user';
 
@@ -10,13 +11,13 @@ import * as Validators from '../services/validation.service';
 let users: User[] = [];
 
 // get all the user from database
-export const getUsers = (req: any, res: any): any => {
+export const getUsers = (req: Request, res: Response): any => {
   return res.status(200)
     .json(users);
 }
 
 // create new user
-export const creteUser = (req: any, res: any): any => {
+export const creteUser = (req: Request, res: Response): any => {
   const user: User = { ...req.body, id: Math.random() };
   const validationResult = Validators.validateUser(user);
   
@@ -31,7 +32,8 @@ export const creteUser = (req: any, res: any): any => {
 }
 
 // updare existing user
-export const updateUser = (req: any, res: any): any => {
+export const updateUser = (req: Request, res: Response): any => {
+  console.log(req.body);
   const user: User = req.body;
   const validationResult = Validators.validateUser(user);
 
@@ -48,7 +50,7 @@ export const updateUser = (req: any, res: any): any => {
 }
 
 // delete existing user
-export const deleteUser = (req: any, res: any): any => {
+export const deleteUser = (req: Request, res: Response): any => {
   const userId: number = req.query.id;
   const validationResult = Validators.validateUserId(userId);
   
