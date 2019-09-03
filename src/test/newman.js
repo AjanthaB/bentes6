@@ -1,6 +1,7 @@
 const newman = require('newman');
 const fs = require('fs');
 
+// read the current directory 
 fs.readdir(__dirname, (err, files) => {
   if (err) { throw err; }
 
