@@ -1,14 +1,17 @@
 /**
  * @author Ajantha Bandara
  */
-import { Request, Response } from 'express'
+import { Request, Response } from 'express';
+// import regeneratorRuntime from "regenerator-runtime";
+const Excel = require('exceljs');
 
 import { User } from '../models/user';
 
 import * as Validators from '../services/validation.service';
 
-// temporaty users
+// temporary users
 let users: User[] = [];
+
 
 // get all the user from database
 export const getUsers = (req: Request, res: Response): any => {
@@ -31,7 +34,7 @@ export const creteUser = (req: Request, res: Response): any => {
     .json(user);
 }
 
-// updare existing user
+// update existing user
 export const updateUser = (req: Request, res: Response): any => {
   console.log(req.body);
   const user: User = req.body;
@@ -62,4 +65,23 @@ export const deleteUser = (req: Request, res: Response): any => {
   users = users.filter((user: User) => user.id != userId);
   return res.status(200)
     .json();
+}
+
+export const generateExcel = async (req: Request, res: Response): any => {
+  const workbook = new Excel.Workbook(); //create object of workbook
+  const ws = workbook.addWorksheet('TestData');
+  // use write file function to create new file
+  ws.getCell(1,1).value = 'Test val';
+  ws.getCell(1, 1).note = {texts: [{text: 'New Comment'}]};
+  
+  res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+  res.setHeader("Content-Disposition", "attachment; filename=" + "Report.xlsx");
+  return workbook.xlsx.write(res)
+    .then(() => {
+      res.end();
+      console.log("excel file created successfully");
+    }, (err: any) => {
+      console.log(err);
+      res.json({error: true});
+    });
 }

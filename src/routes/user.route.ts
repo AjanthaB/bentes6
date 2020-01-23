@@ -12,6 +12,9 @@ const routes = (app: any) => {
     .post(UserController.creteUser)
     .put(UserController.updateUser)
     .delete(UserController.deleteUser);
+
+  app.route('/report')
+    .get(UserController.generateExcel)
 }
 
 export default routes;
