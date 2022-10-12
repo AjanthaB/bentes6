@@ -6,14 +6,15 @@ import { Request, Response } from 'express'
 import { User } from '../models/user';
 
 import * as Validators from '../services/validation.service';
+import * as UserService from '../services/user.service';
 
-// temporaty users
+// tmp users
 let users: User[] = [];
 
 // get all the user from database
 export const getUsers = (req: Request, res: Response): any => {
   return res.status(200)
-    .json(users);
+    .json(UserService.getUsers());
 }
 
 // create new user
@@ -26,9 +27,9 @@ export const creteUser = (req: Request, res: Response): any => {
       .json(Validators.getJoiValidationErrors(validationResult));
   }
 
-  users.push(user);
+  const savedUser = UserService.createUser(user);
   return res.status(201)
-    .json(user);
+    .json(savedUser);
 }
 
 // updare existing user
@@ -42,11 +43,9 @@ export const updateUser = (req: Request, res: Response): any => {
       .json(Validators.getJoiValidationErrors(validationResult));
   }
 
-  users = users
-    .map((usr: User) => usr.id === user.id ? user : usr);
-  
+  const updatedUser = UserService.updateUser(user);  
   return res.status(200)
-    .json(user);
+    .json(updatedUser);
 }
 
 // delete existing user
@@ -59,7 +58,7 @@ export const deleteUser = (req: Request, res: Response): any => {
       .json(Validators.getJoiValidationErrors(validationResult));
   }
   console.log("userid: ", userId);
-  users = users.filter((user: User) => user.id != userId);
+  UserService.deleteUser(userId);
   return res.status(200)
     .json();
 }

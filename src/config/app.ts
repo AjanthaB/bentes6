@@ -27,7 +27,7 @@ const start = () => {
   init((app: any) => {
     app.listen(_config.port, (err: any) => {
       if (err) console.log(err);
-      console.log(`Application is running on ${_config.host} port: ${_config.port}`);
+      console.log(`🔥Application is running on ${_config.host} port: ${_config.port} 🔥`);
     })
   })
 }
