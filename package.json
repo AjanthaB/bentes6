@@ -1,7 +1,7 @@
 {
   "name": "bentes6",
-  "version": "1.1.0",
-  "description": "Node.js, Typescript Bable 7 and ES6 setup",
+  "version": "2.0.0",
+  "description": "Node.js, Typescript Babel 7 and ES6 setup",
   "main": "server.js",
   "scripts": {
     "start": "nodemon",
@@ -12,10 +12,10 @@
     "test:newman": "node src/test/newman.js"
   },
   "keywords": [
-    "Bable7",
+    "Babel7",
     "nodejs",
     "Typescript",
-    "expressjs"
+    "express.js"
   ],
   "author": "Ajantha Bandara",
   "license": "MIT",
@@ -27,8 +27,8 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-typescript": "^7.0.0",
-    "newman": "^4.3.1",
-    "nodemon": "^1.18.3",
+    "newman": "^5.3.2",
+    "nodemon": "^2.0.20",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "typescript": "^3.1.1"
